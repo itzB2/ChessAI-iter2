@@ -4,7 +4,9 @@ import pygame
 pygame.init()
 
 #Own Modules
-from UI import * 
+from UI import *
+from Board import Board
+from Piece import *
 
 DISPLAY = pygame.display.set_mode((720,720))
 
@@ -13,6 +15,8 @@ dC = (255, 137, 94)
 lC = (200,200,200)
 
 GUIboard = GUIBoard(dC,lC,size)
+Board = Board(GUIBoard)
+GUIboard.setLogicBoard(Board)
 
 running = False
 while not running:

@@ -1,7 +1,9 @@
 from Piece import *
 
+Piece = Piece()
+
 def decodeFen(fen, board):
-	typeLookup = {'k':"King",'p':"Pawn",'n':"Knight",'b':"Bishop",'r':"Rook",'q':"Queen"}
+	typeLookup = {'k':Piece.KING,'p':Piece.PAWN,'n':Piece.KNIGHT,'b':Piece.BISHOP,'r':Piece.ROOK,'q':Piece.QUEEN}
 	fenBoard = fen.split(" ")[0]
 	file = 0
 	rank = 7
@@ -14,13 +16,17 @@ def decodeFen(fen, board):
 			if char.isdigit():
 				file += int(char)
 			else:
-				pieceColor = "White" if char.isupper() else "Black"
+				pieceColor = Piece.WHITE if char.isupper() else Piece.BLACK
 				pieceType = typeLookup[char.lower()]
-				self.pieces[file][rank] = Piece(pieceColor, pieceType)
+				board.setPiece((file * 8) + rank, pieceType | pieceColor)
 				file+=1
 
 class Board:
-	def __init__(self, fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"):
+	def __init__(self, guiBoard,  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"):
 		self.fen = fen
+		self.pieces = [Piece.NONE if j==0 else Piece.NONE for j in range(0,64)]
+		self.GUIBoard = guiBoard
 
-	def 
+	def setPiece(self, index, piece):
+		self.pieces[index] = piece
+
